@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Choosing Cat</string>
+    <string name="loading_label">Carregando</string>
+    <string name="error_message">Deu erro</string>
+</resources>
