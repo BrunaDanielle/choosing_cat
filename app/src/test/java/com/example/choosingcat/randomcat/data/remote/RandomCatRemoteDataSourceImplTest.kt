@@ -1,58 +1,45 @@
 package com.example.choosingcat.randomcat.data.remote
 
 import app.cash.turbine.test
+import com.example.choosingcat.fixtures.Fixture.catDomain
+import com.example.choosingcat.fixtures.Fixture.randomCatResponse
 import com.example.choosingcat.randomcat.data.remote.api.RandomCatApi
-import com.example.choosingcat.randomcat.data.remote.model.RandomCatResponse
+import com.example.choosingcat.randomcat.data.remote.mappers.RandomCatMapper
 import com.example.choosingcat.randomcat.data.repository.RandomCatRemoteDataSource
-import com.example.choosingcat.randomcat.domain.model.Cat
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
-import kotlinx.coroutines.runBlocking
-import org.junit.Assert.assertEquals
-import org.junit.Test
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
 
 internal class RandomCatRemoteDataSourceImplTest {
     private val mockedService: RandomCatApi = mockk()
+    private val mockedMapper: RandomCatMapper = mockk()
     private val remoteDataSource: RandomCatRemoteDataSource = RandomCatRemoteDataSourceImpl(
-        mockedService
+        mockedService,
+        mockedMapper
     )
 
     @Test
-    fun getRandomCatShouldReturnACatWhenRequestCompleted() = runBlocking {
-        //Given
-        val catResponse = RandomCatResponse(
-            id = "1",
-            catPhotoUrl = "url.com",
-            imgHeight = 2,
-            imgWidth = 3
-        )
+    fun `getRandomCat should return a cat when request completed`() = runTest {
+        coEvery { mockedService.getCat() } answers { listOf(randomCatResponse) }
+        every { mockedMapper.map(any()) } returns catDomain
 
-        val cat = Cat(
-            id = "1",
-            catPhotoUrl = "url.com",
-        )
-
-        coEvery { mockedService.getCat() } answers { listOf(catResponse) }
-
-        // When
         val result = remoteDataSource.getRandomCat()
 
-        // Then
         result.test {
-            assertEquals(cat, expectMostRecentItem())
+            assertEquals(catDomain, expectMostRecentItem())
             awaitComplete()
         }
     }
 
     @Test
-    fun getRandomCatShouldReturnExceptionWhenRequestFails() = runBlocking {
-        //Given
+    fun `getRandomCat should return exception when request fails`() = runTest {
         coEvery { mockedService.getCat() } answers { listOf() }
 
-        // When
         val result = remoteDataSource.getRandomCat()
 
-        // Then
         result.test {
             assertEquals("Api não retornou nenhum gato", awaitError().message)
         }

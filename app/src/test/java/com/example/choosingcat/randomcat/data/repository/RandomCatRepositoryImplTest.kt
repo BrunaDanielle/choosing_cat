@@ -1,9 +1,13 @@
 package com.example.choosingcat.randomcat.data.repository
 
 import app.cash.turbine.test
+import com.example.choosingcat.fixtures.Fixture.catDomain
 import com.example.choosingcat.randomcat.domain.RandomCatRepository
-import com.example.choosingcat.randomcat.domain.model.Cat
-import io.mockk.*
+import io.mockk.Runs
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
@@ -19,24 +23,17 @@ internal class RandomCatRepositoryImplTest {
     )
 
     @Test
-    fun getRandomCatShouldGetCatFromService() = runBlocking {
-        // Given
-        val randomCat = Cat(
-            id = "1",
-            catPhotoUrl = "url.com"
-        )
+    fun `getRandomCat should get cat from service`() = runBlocking {
         every { mockedRemoteDataSource.getRandomCat() } answers {
-            flowOf(randomCat)
+            flowOf(catDomain)
         }
 
-        coEvery { mockedLocalDataSource.insertRandomCat(randomCat) } just Runs
+        coEvery { mockedLocalDataSource.insertRandomCat(catDomain) } just Runs
 
-        //When
         val result = repository.getRandomCat()
 
-        // Then
         result.test{
-            assertEquals(randomCat, expectMostRecentItem())
+            assertEquals(catDomain, expectMostRecentItem())
             awaitComplete()
         }
     }
