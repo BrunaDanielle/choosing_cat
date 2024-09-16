@@ -7,11 +7,11 @@ import kotlinx.serialization.Serializable
 data class RandomCatResponse(
     @SerialName("breeds")
     val catBreeds: List<String>? = null,
-    val id: String,
+    val id: String? = null,
     @SerialName("url")
-    val catPhotoUrl: String,
+    val catPhotoUrl: String? = null,
     @SerialName("width")
-    val imgWidth: Int,
+    val imgWidth: Int? = null,
     @SerialName("height")
-    val imgHeight: Int,
+    val imgHeight: Int? = null,
 )
