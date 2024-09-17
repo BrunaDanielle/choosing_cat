@@ -30,9 +30,11 @@ e uma segunda tela com a lista de gatos vistos anteriormente.
 
 ## Features
 
-Esta Aplicação possui 2 telas
-a tela inicial com uma imagem e ID do gato e 2 botões, um para recaregar os dados e outro para exibir da lista de gatos visualizados
-e uma tela que que trás a listagem dos gatos vistos.
+Esta aplicação possui duas telas:
+
+A tela inicial, que exibe uma imagem e o ID do gato, além de dois botões: um para recarregar os dados e outro para exibir a lista de gatos visualizados.
+
+A segunda tela exibe a listagem dos gatos vistos.
  
 ## Pacotes
 
@@ -46,7 +48,7 @@ O projeto se encontra organizado em uma arquitetura mvvm+clean e cada feature no
 
 ## Injeção de dependência
 
-Neste projeto é utilizado o koin para fazer as chamadas dos módulos
+Neste projeto é utilizado o koin para gerenciar dependências
 
 
 ## Proxímos passos
@@ -54,5 +56,5 @@ Neste projeto é utilizado o koin para fazer as chamadas dos módulos
 - Criar e melhorar os testes instrumentados
 - Aumentar a cobertura de testes unitários
 - Colocar a opção de abrir as informações de um item da lista
-- Modularização por features
+- Melhorar o layout das telas
 
