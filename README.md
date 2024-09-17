@@ -48,7 +48,7 @@ O projeto está estruturado com arquitetura Clean e na camada de apresentação 
 Neste projeto é utilizado o koin para gerenciar dependências
 
 
-## Proxímos passos
+## Próximos passos
 
 - Criar e melhorar os testes instrumentados
 - Aumentar a cobertura de testes unitários
