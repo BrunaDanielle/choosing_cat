@@ -35,16 +35,13 @@ Esta aplicação possui duas telas:
 A tela inicial, que exibe uma imagem e o ID do gato, além de dois botões: um para recarregar os dados e outro para exibir a lista de gatos visualizados.
 
 A segunda tela exibe a listagem dos gatos vistos.
- 
-## Pacotes
 
-O projeto se encontra organizado em uma arquitetura mvvm+clean e cada feature no seu package
+## Arquitetura
 
-- Data
-- Domain
-- Presentation
-- Common
-- Di
+O projeto está estruturado com arquitetura Clean e na camada de apresentação está utilizando a arquitetura Mvvm, da forma como mostra a imagem. Cada tela segue essa mesma estrtura.
+
+![image](https://github.com/user-attachments/assets/ebd45e1a-012f-4e55-bee2-9fa5bc418b67)
+
 
 ## Injeção de dependência
 
